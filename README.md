@@ -1,104 +1,108 @@
-📖 OpenBook – E-Book Reader Open-Source
-OpenBook este un e-book reader open-source, low-cost, dezvoltat în cadrul proiectului TSC. Dispozitivul este construit pe baza microcontrolerului ESP32-C6 și integrează funcționalități avansate de afișare, comunicare și consum redus de energie, fiind pregătit pentru producție în masă.
+# OpenBook – Open-Source E-Book Reader
 
-🧩 Diagrama Bloc
+OpenBook este un e-book reader open-source, low-cost, dezvoltat în cadrul proiectului TSC.  
+Dispozitivul este construit pe baza microcontrolerului **ESP32-C6** și integrează funcționalități avansate de afișare, comunicație și consum redus de energie, fiind pregătit pentru producție în masă.
 
-Diagrama bloc care ilustrează conexiunile dintre toate componentele se află în Images/diagrama.png.
+---
 
+##  Diagrama Bloc
 
-📦 BOM – Bill of Materials
+Diagrama bloc care ilustrează conexiunile dintre toate componentele:
 
-Cod Componentă	Descriere	Datasheet / Link	Achiziție
-ESP32-C6-WROOM-1-N8	MCU WiFi 6, BLE, Zigbee	Link	Mouser
-W25Q512JVEIQ	Flash SPI 512Mb	Link	Mouser
-MAX17048G+T10	Fuel Gauge IC	Link	Mouser
-MCP73831T	Li-Ion Charge Controller	Link	Mouser
-DS3231SN#	Real-Time Clock	Link	Mouser
-BME680	Senzor aer, umiditate, temperatură	Link	Mouser
-USB4110-GF-A	USB Type-C Conector	Link	Mouser
-CPH3225A	Supercapacitor	Link	-
-📁 BOM complet detaliat se află în Manufacturing/BOM.csv.
+![Diagrama Bloc](Images/diagrama.png)
 
-Link:
-https://industry.panasonic.com/global/en/products/control/switch/light-touch/number/evqpuj02k
-https://componentsearchengine.com/part-view/CC0402MRX5R5BB106/YAGEO
-https://a360.co/4iZy6AA
-https://www.snapeda.com/parts/CPH3225A/Seiko+Instruments/view-part/?ref=eda
-https://industry.panasonic.com/global/en/products/control/switch/light-touch/number/evqpuj02k
-https://www.snapeda.com/parts/USBLC6-2SC6Y/STMicroelectronics/view-part/?ref=eda
-https://eu.mouser.com/ProductDetail/KYOCERA-AVX/SD0805S020S1R0?qs=jCA%252BPfw4LHbpkAoSnwrdjw%3D%3D
-https://www.snapeda.com/parts/MBR0530/Onsemi/view-part/?ref=eda
-https://www.snapeda.com/parts/MBR0530/Onsemi/view-part/?ref=eda
-https://www.snapeda.com/parts/PGB1010603MR/Littelfuse/view-part/?ref=eda
-https://eu.mouser.com/ProductDetail/KYOCERA-AVX/SD0805S020S1R0?qs=jCA%252BPfw4LHbpkAoSnwrdjw%3D%3D
-https://www.snapeda.com/parts/PGB1010603MR/Littelfuse/view-part/?ref=eda
-https://componentsearchengine.com/part-view/BD5229G-TR/ROHM%20Semiconductor
-https://componentsearchengine.com/part-view/USB4110-GF-A/GCT%20(GLOBAL%20CONNECTOR%20TECHNOLOGY)
-https://componentsearchengine.com/part-view/R0402%201%25%20100%20K%20(RC0402FR-07100KL)/YAGEO
-https://industry.panasonic.com/global/en/products/control/switch/light-touch/number/evqpuj02k
-https://www.snapeda.com/parts/BME680/Bosch/view-part/?welcome=home
-https://www.snapeda.com/parts/W25Q512JVEIQ/Winbond+Electronics/view-part/?ref=eda
-https://www.snapeda.com/parts/ESP32-C6-WROOM-1-N8/Espressif+Systems/view-part/?ref=eda
-https://www.snapeda.com/parts/MAX17048G+T10/Analog+Devices/view-part/?ref=eda
+---
 
-📌 Pinout ESP32-C6
-Componentă	Interfață	Pini ESP32-C6	Motiv
-E-Paper Display	SPI	MOSI, SCK, CS, DC, RST, BUSY	viteză ridicată, dedicat grafică
-BME680	I2C	SDA, SCL	partajat cu RTC
-RTC DS3231	I2C	SDA, SCL	consum redus în sleep
-FLASH SPI	SPI	separat de display	acces paralel în multitasking
-USB-C	GPIO + UART	Rx, Tx, VBUS, GND	debug și alimentare
-Baterie	ADC	GPIO pentru citire nivel	monitorizare încărcare
-Fuel Gauge	I2C	comun cu RTC & BME680	eficiență rutare
+## 📦 BOM – Bill of Materials
 
-🛠️ Proces de Proiectare
+| Cod Componentă        | Descriere                         | Datasheet / Link Achiziție                                                                 |
+|------------------------|-----------------------------------|--------------------------------------------------------------------------------------------|
+| ESP32-C6-WROOM-1-N8    | MCU WiFi 6, BLE, Zigbee           | [Mouser](https://eu.mouser.com/ProductDetail/Espressif-Systems/ESP32-C6-WROOM-1-N8)         |
+| W25Q512JVEIQ           | Flash SPI 512Mb                   | [Mouser](https://eu.mouser.com/ProductDetail/Winbond/W25Q512JVEIQ)                         |
+| MAX17048G+T10          | Fuel Gauge IC                     | [Mouser](https://eu.mouser.com/ProductDetail/Maxim-Integrated/MAX17048G-T10)               |
+| MCP73831T              | Li-Ion Charge Controller          | [Mouser](https://eu.mouser.com/ProductDetail/Microchip-Technology/MCP73831T-2ACI-OT)       |
+| DS3231SN#              | Real-Time Clock                   | [Mouser](https://eu.mouser.com/ProductDetail/Maxim-Integrated/DS3231SN)                    |
+| BME680                 | Senzor aer, umiditate, temperatură| [Mouser](https://eu.mouser.com/ProductDetail/Bosch/BME680)                                 |
+| USB4110-GF-A           | USB Type-C Conector               | [Mouser](https://componentsearchengine.com/part-view/USB4110-GF-A/GCT)                     |
+| CPH3225A               | Supercapacitor                    | [SnapEDA](https://www.snapeda.com/parts/CPH3225A/Seiko+Instruments/view-part)              |
 
-✅ Etape parcurse:
-Schema importată și ajustată după modelul oficial pe OCW
+# Bill of Materials (BOM)
 
-switch to pbc tot ajustata dupa modelul pe ocw
+| Package | Parts | Datasheet | Supplier |
+|:--------|:------|:----------|:---------|
+| ADAFRUIT_CHIP-LED0603 | CHG_LED | [Link](Link) | [Link](Link) |
+| SJ | SJ1 | [Link](Link) | [Link](Link) |
+| ESP32_WROVER_EAGLE-LTSPICE_R0402 | R1_PWRUSB, R1, R1_PINH1, R2-PINH, R2-PINH1, R5, R6, R7, R8, R9, R10, R_BOOT, R_CL1, R_RESET, R3, R1_PINH, R4, R_CHANGE, R_CAPACITOR, R2, R1_BAT, R2_BAT, R2_USB, R2_USB1 | [Link](Link) | [Link](Link) |
+| ESP32_WROVER_EAGLE-LTSPICE_C0402 | C1, C2, C4_USB, C6, C8, C9, C10, C_DELAY, EPD_C5, EPD_C1, EPD_C2, EPD_C6, EPD_C7, EPD_C8, EPD_C9, EPD_C10, EPD_C11, EPD_C12, C7, C5, C4, C1_BAT, C1_BAT1, C1_BAT2, C2_BAT, C5_USB | [Link](Link) | [Link](Link) |
+| RCL_CT3528 | C3 | [Link](Link) | [Link](Link) |
+| 112ATAARR03ATTEND | J4 | [Link](Link) | [Link](Link) |
+| ESP32_WROVER_SPARKFUN-DISCRETESEMI_SOT23-3 | Q1, Q2 | [Link](Link) | [Link](Link) |
+| IND_4828-WE-TPC_WRE | L1 | [Link](Link) | [Link](Link) |
+| SOT95P280X125-5N | IC1 | [Link](Link) | [Link](Link) |
+| MYBUTTON | BOOT_BUTTON, CHANGE_BUTTON, RESET_BUTTON | [Link](Link) | [Link](Link) |
+| CAPCP3225X100N | C10_SUPERCAP | [Link](Link) | [Link](Link) |
+| SOIC127P1032X265-16N | U3 | [Link](Link) | [Link](Link) |
+| XCVR_ESP32-C6-WROOM-1-N8 | U2 | [Link](Link) | [Link](Link) |
+| ESP32C6_VARISTOR_CT/CN1812 | PFMF.050.1 | [Link](Link) | [Link](Link) |
+| ESP32_WROVER_AVX---SD0805S020S1R0_AVX_SD0805S020S1R0_0 | D2, D7 | [Link](Link) | [Link](Link) |
+| ESP32_WROVER_BME680_PSON80P300X300X100-8N | SENSOR2 | [Link](Link) | [Link](Link) |
+| ESP32_WROVER_SPARKFUN-IC-POWER_SOT23-5 | U0 | [Link](Link) | [Link](Link) |
+| FH34SRJ24S05SH99 | J1 | [Link](Link) | [Link](Link) |
+| SON50P200X200X80-9N | U4 | [Link](Link) | [Link](Link) |
+| SOD3716X135N | D3, D4, D5 | [Link](Link) | [Link](Link) |
+| DIOC1608X36N | D6, D8, D9, D10, D11, D12 | [Link](Link) | [Link](Link) |
+| JST04_1MM_RA | J3 | [Link](Link) | [Link](Link) |
+| SAMACSYS_PARTS_USB4110GFA | J2 | [Link](Link) | [Link](Link) |
+| SOT65P210X110-3N | Q3 | [Link](Link) | [Link](Link) |
+| SOT95P280X145-6N | D1 | [Link](Link) | [Link](Link) |
+| SON127P600X800X80-9N | U1 | [Link](Link) | [Link](Link) |
+| SOT95P280X120-5N | IC4 | [Link](Link) | [Link](Link) |
 
-Plan de masă realizat pe ambele straturi pe pbc (TOP/BOTTOM)
+## 🛠️ Descriere Hardware
 
-Netclass-uri pentru trasee de alimentare (0.3mm) și date (0.15mm)
+OpenBook folosește următoarele module și componente:
 
-Autorouting selectiv pe TOP si pe BOTTOM pentru alimentare (cu AUTO 3V3 EPD_3V3 EPD_3V3_C VBUS VUSB ...)
+- **ESP32-C6-WROOM-1-N8** – Microcontroller principal cu conectivitate WiFi 6, BLE și Zigbee.
+- **W25Q512JVEIQ** – Memorie Flash SPI pentru stocarea datelor.
+- **MAX17048** – Fuel Gauge pentru monitorizarea nivelului de încărcare a bateriei.
+- **MCP73831** – Circuit de încărcare Li-Ion prin USB Type-C.
+- **DS3231** – Ceas de timp real cu acuratețe ridicată.
+- **BME680** – Senzor ambiental pentru calitatea aerului, temperatură și umiditate.
+- **CPH3225A** – Supercapacitor pentru backup RTC.
+- **USB4110-GF-A** – Conector USB Type-C pentru alimentare și comunicație.
 
-rezolvarea errori de airwire, overlap, copper clearness
+**Specificații de comunicație și interfețe:**
+- **I2C**: DS3231 (RTC), BME680 (senzor ambiental)
+- **SPI**: W25Q512JVEIQ (memorie Flash externă)
+- **I2C/SPI**: Ecran E-Paper
+- **Fuel Gauge (MAX17048)**: comunicație prin I2C
+- **USB**: Alimentare și încărcare prin MCP73831 + conector USB-C
 
-am pus piesele 3d pe pleaca , am luat carcasa pe ocw 
+**Calcul de consum de energie:**
+- Dispozitivul intră în mod Deep Sleep ESP32 pentru a minimiza consumul (~20 µA).
+- Fuel Gauge optimizează încărcarea/descărcarea bateriei pentru o autonomie maximă.
 
-am implementat displayul si bateria de pe ocw si le am pus in carcasa 
- 
-am facut animatia -exploded  view 
+---
 
-🧩 Probleme întâlnite și soluții:
-Footprint bobină L1 avea pad-uri sincronizate – am editat din bibliotecă și am înlocuit cu versiune custom (35x190mil).
+##  Pini ESP32-C6 folosiți
 
-Silkscreen suprapus – am folosit Copy Format pentru scalare uniformă.
+| Componentă         | Pini ESP32-C6   | Motivare                                   |
+|---------------------|-----------------|--------------------------------------------|
+| Ecran E-Paper       | SPI (MOSI, MISO, SCLK, CS, DC, RST, BUSY) | Comunicarea eficientă cu ecranul grafic. |
+| W25Q512JVEIQ (Flash)| SPI partajat     | Economie de pini, viteze mari de transfer. |
+| DS3231 (RTC)        | I2C SDA, SCL     | Comunicare cu precizie orară.             |
+| BME680 (Senzor)     | I2C SDA, SCL     | Comunicare senzor ambiental.              |
+| MAX17048 (Fuel Gauge)| I2C SDA, SCL    | Monitorizare nivel baterie.               |
+| MCP73831 (Charger)  | GPIO pentru statut încărcare | Monitorizare simplă LED statut încărcare.|
+| USB4110-GF-A        | USB D+/D-        | Alimentare și comunicare USB.             |
 
-Import și asocieri modele 3D:
-Pentru componente unice: .step importat manual în Add New 3D Design
+---
 
-Pentru componente repetitive: am folosit Edit Component → Create New 3D Model, apoi Replace Package pentru a le atașa corect în bibliotecă
+## 🖼️ Alte informații utile
 
-După ce modelele au fost salvate, s-a făcut Update from Library în PCB
+-  **Design Log**: Documentația completă a deciziilor de design se află în `Documentation/DesignLog.md`.
+-  **Randări PCB**: Imagini randate cu placa de circuit imprimat în `Images/PCB_Renders/`.
+-  **Carcasă**: Așezarea componentelor în carcasă poate fi vizualizată în `Images/Enclosure/`.
 
-Am testat exportul .step final și poziționarea corectă a componentelor în pbc
-
-Overlap de paduri (în special la bobina L1) rezolvat prin modificarea dimensiunii pad-urilor(in edit footprint) si dupa am dat update pe biblioteca 
-
-
-
-📸 Randări & Documentație
-✅ Randări 3D în folderul Images/
-
-✅ Model 3D complet în folderul Mechanical/
-
-✅ Fișiere de producție în Manufacturing/
-
-✅ Schemă și PCB în Hardware/
-
-📚 Licență
-Acest proiect este licențiat sub licența Apache 2.0 – îl puteți folosi, modifica și distribui în scopuri educaționale și comerciale.
+---
 
