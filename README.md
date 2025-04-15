@@ -86,11 +86,5 @@ OpenBook folosește următoarele module și componente:
 
 ---
 
-##  Alte informații utile
 
--  **Design Log**: Documentația completă a deciziilor de design se află în `Documentation/DesignLog.md`.
--  **Randări PCB**: Imagini randate cu placa de circuit imprimat în `Images/PCB_Renders/`.
--  **Carcasă**: Așezarea componentelor în carcasă poate fi vizualizată în `Images/Enclosure/`.
-
----
 
