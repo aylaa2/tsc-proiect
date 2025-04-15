@@ -72,17 +72,37 @@ OpenBook folosește următoarele module și componente:
 
 ---
 
-##  Pini ESP32-C6 folosiți
+##  Pini ESP32-C6 
 
-| Componentă         | Pini ESP32-C6   | Motivare                                   |
-|---------------------|-----------------|--------------------------------------------|
-| Ecran E-Paper       | SPI (MOSI, MISO, SCLK, CS, DC, RST, BUSY) | Comunicarea eficientă cu ecranul grafic. |
-| W25Q512JVEIQ (Flash)| SPI partajat     | Economie de pini, viteze mari de transfer. |
-| DS3231 (RTC)        | I2C SDA, SCL     | Comunicare cu precizie orară.             |
-| BME680 (Senzor)     | I2C SDA, SCL     | Comunicare senzor ambiental.              |
-| MAX17048 (Fuel Gauge)| I2C SDA, SCL    | Monitorizare nivel baterie.               |
-| MCP73831 (Charger)  | GPIO pentru statut încărcare | Monitorizare simplă LED statut încărcare.|
-| USB4110-GF-A        | USB D+/D-        | Alimentare și comunicare USB.             |
+
+Mai jos este un rezumat al pinilor folosiți pe microcontroller, cu funcțiile și componenta asociată:
+
+| GPIO  | Componentă         | Funcție                     |
+|-------|--------------------|-----------------------------|
+| EN    | Buton Reset        | Reset hardware              |
+| IO0   | RTC                | INT_RTC (interupt RTC)      |
+| IO1   | RTC                | 32KHz output                |
+| IO2   | SD Card            | MISO                        |
+| IO3   | E-paper Display    | EPD_BUSY                    |
+| IO4   | SD Card            | SS_SD (chip select)         |
+| IO5   | E-paper Display    | EPD_DC                      |
+| IO6   | SPI Shared         | SCK                         |
+| IO7   | SPI Shared         | MOSI                        |
+| IO8   | GPIO               | Utilizare generica          |
+| IO9   | Boot Button        | Mod programare              |
+| IO10  | E-paper Display    | EPD_CS                      |
+| IO11  | NOR Flash          | FLASH_CS                    |
+| IO12  | USB Interface      | USB_D-                      |
+| IO13  | USB Interface      | USB_D+                      |
+| IO15  | Buton Change       | Detectare schimbare         |
+| IO16  | UART               | TX (debug serial)           |
+| IO17  | UART               | RX (debug serial)           |
+| IO18  | RTC                | RTC_RST                     |
+| IO19  | MAX17048           | I2C_PW (alimentare I2C)     |
+| IO20  | E-paper Display    | EPD_3V3_C (power control)   |
+| IO21  | I2C Shared         | SDA                         |
+| IO22  | I2C Shared         | SCL                         |
+| IO23  | E-paper Display    | EPD_RST                     |
 
 ---
 
